@@ -21,13 +21,15 @@ bot.on("message", async (ctx) => {
     console.log("*******", user.user.username, "*****", Deno.env.get("USERS"));
     return ctx.reply("Scram! You're not allowed to use this bot.");
   }
-  if(!ctx.message.text) {
+  if (!ctx.message.text) {
     return ctx.reply("Send a word in french");
   }
   try {
     const result = await getScreenshot(ctx.message.text!);
-	 const image = new InputFile(result.res, `${ctx.message.text}.png`)
-    return ctx.replyWithDocument(image)
+    const buffer = result?.res;
+    if (!buffer) throw Error("something bad happened");
+    const image = new InputFile(buffer, `${ctx.message.text}.png`);
+    return ctx.replyWithDocument(image);
   } catch (error) {
     console.error(JSON.stringify(error, null, 2));
     return ctx.reply(error.message);

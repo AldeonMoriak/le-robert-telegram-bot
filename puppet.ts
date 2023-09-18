@@ -22,6 +22,8 @@ export async function getScreenshot(word: string) {
     const main = await page.waitForSelector("main");
     const image = await main!.screenshot() as Uint8Array;
     return { res: image };
+  } catch(error) {
+    console.error(JSON.stringify(error, null, 2));
   } finally {
     await browser.close();
   }
