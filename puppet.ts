@@ -16,8 +16,6 @@ export async function getScreenshot(word: string) {
     });
     const main = await page.waitForSelector("main");
     const res = await main!.screenshot() as Uint8Array;
-    //const res = await main!.screenshot({path: 'example.png'}) as Uint8Array;
-    console.log(res);
     return { body: res, type: "png" };
   } finally {
     await browser.close();
