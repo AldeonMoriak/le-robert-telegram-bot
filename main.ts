@@ -9,7 +9,7 @@ const bot = new Bot(Deno.env.get("TELEGRAM_KEY") || "");
 
 bot.command(
   "start",
-  (ctx) => ctx.reply("Hello. get the latest currencies in Toman"),
+  (ctx) => ctx.reply("Hello. get French words meanings in English"),
 );
 bot.on("message", async (ctx) => {
   const user = await ctx.getAuthor();
@@ -27,7 +27,7 @@ bot.on("message", async (ctx) => {
   try {
     const result = await getScreenshot(ctx.message.text!);
 	 const image = new InputFile(result.body)
-    return ctx.replyWithPhoto(image)
+    return ctx.replyWithDocument(image)
     //return ctx.reply("Something went wrong!");
   } catch (error) {
     console.error(JSON.stringify(error, null, 2));
