@@ -14,11 +14,12 @@ export async function getScreenshot(word: string) {
     await page.goto(`https://dictionnaire.lerobert.com/definition/${word}`, {
       waitUntil: "domcontentloaded",
     });
-    const closeButton = await page.waitForSelector(
-      "#onetrust-close-btn-container > button",
-      { timeout: 0 },
-    );
-    await closeButton?.click();
+	 // INFO: if you have used browserless.io token before no need for this commented lines
+    // const closeButton = await page.waitForSelector(
+    //   "#onetrust-close-btn-container > button",
+    //   { timeout: 0 },
+    // );
+    // await closeButton?.click();
     const main = await page.waitForSelector("main");
     return await main!.screenshot() as Uint8Array;
   } finally {
