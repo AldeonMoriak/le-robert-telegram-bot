@@ -22,7 +22,7 @@ Follow these steps to host the bot on Deno Deploy:
 
 6. Send a request to the following URL to configure your bot's webhook to point to your app:
    ```
-   https://api.telegram.org/bot<token>/setWebhook?url=<url>
+   https://api.telegram.org/bot<token>/setWebhook?url=<url>/<token>
    ```
    Replace `<token>` with your Telegram Bot API token and `<url>` with the URL of your Deno Deploy app.
 
