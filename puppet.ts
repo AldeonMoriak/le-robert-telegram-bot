@@ -14,10 +14,12 @@ export async function getScreenshot(word: string) {
     await page.goto(`https://dictionnaire.lerobert.com/definition/${word}`, {
       waitUntil: "domcontentloaded",
     });
+	 const closeButton = await page?.waitForSelector('#onetrust-close-btn-container > button');
+	 await closeButton?.click()
     const main = await page.waitForSelector("main");
-    const res = await main!.screenshot() as Uint8Array;
-    return { body: res, type: "png" };
+    return await main!.screenshot() as Uint8Array;
   } finally {
     await browser.close();
   }
 }
+getScreenshot('aimer')
