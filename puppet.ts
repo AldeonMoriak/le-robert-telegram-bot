@@ -5,8 +5,6 @@ if (BROWSERLESS_TOKEN === undefined) {
   throw new TypeError("Missing BROWSERLESS_TOKEN environment variable.");
 }
 
-let isNotClicked = true;
-
 export async function getScreenshot(word: string) {
   const browser = await puppeteer.connect({
     browserWSEndpoint: `wss://chrome.browserless.io?token=${BROWSERLESS_TOKEN}`,
@@ -16,14 +14,11 @@ export async function getScreenshot(word: string) {
     await page.goto(`https://dictionnaire.lerobert.com/definition/${word}`, {
       waitUntil: "domcontentloaded",
     });
-    if (isNotClicked) {
-      const closeButton = await page.waitForSelector(
-        "#onetrust-close-btn-container > button",
-        { timeout: 0 },
-      );
-      await closeButton?.click();
-      isNotClicked = false;
-    }
+    const closeButton = await page.waitForSelector(
+      "#onetrust-close-btn-container > button",
+      { timeout: 0 },
+    );
+    await closeButton?.click();
     const main = await page.waitForSelector("main");
     const image = await main!.screenshot() as Uint8Array;
     return image;
@@ -31,4 +26,3 @@ export async function getScreenshot(word: string) {
     await browser.close();
   }
 }
-getScreenshot("aimer");
