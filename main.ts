@@ -26,7 +26,7 @@ bot.on("message", async (ctx) => {
   }
   try {
     const result = await getScreenshot(ctx.message.text!);
-	 const image = new InputFile(result, `${ctx.message.text}.png`)
+	 const image = new InputFile(result.res, `${ctx.message.text}.png`)
     return ctx.replyWithDocument(image)
   } catch (error) {
     console.error(JSON.stringify(error, null, 2));
